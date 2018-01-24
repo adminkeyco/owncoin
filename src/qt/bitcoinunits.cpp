@@ -1,5 +1,5 @@
 // Copyright (c) 2011-2014 The Bitcoin developers
-// Copyright (c) 2014-2015 The Owncoin developers
+// Copyright (c) 2014-2015 The Keyco developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -19,9 +19,9 @@ BitcoinUnits::BitcoinUnits(QObject *parent):
 QList<BitcoinUnits::Unit> BitcoinUnits::availableUnits()
 {
     QList<BitcoinUnits::Unit> unitlist;
-    unitlist.append(OWNCOIN);
-    unitlist.append(mOWNCOIN);
-    unitlist.append(uOWNCOIN);
+    unitlist.append(KEYCO);
+    unitlist.append(mKEYCO);
+    unitlist.append(uKEYCO);
     unitlist.append(duffs);
     return unitlist;
 }
@@ -30,9 +30,9 @@ bool BitcoinUnits::valid(int unit)
 {
     switch(unit)
     {
-    case OWNCOIN:
-    case mOWNCOIN:
-    case uOWNCOIN:
+    case KEYCO:
+    case mKEYCO:
+    case uKEYCO:
     case duffs:
         return true;
     default:
@@ -44,9 +44,9 @@ QString BitcoinUnits::id(int unit)
 {
     switch(unit)
     {
-        case OWNCOIN: return QString("owncoin");
-        case mOWNCOIN: return QString("mowncoin");
-        case uOWNCOIN: return QString::fromUtf8("uowncoin");
+        case KEYCO: return QString("keyco");
+        case mKEYCO: return QString("mkeyco");
+        case uKEYCO: return QString::fromUtf8("ukeyco");
         case duffs: return QString("duffs");
         default: return QString("???");
     }
@@ -58,9 +58,9 @@ QString BitcoinUnits::name(int unit)
     {
         switch(unit)
         {
-            case OWNCOIN: return QString("OWNCOIN");
-            case mOWNCOIN: return QString("mOWNCOIN");
-            case uOWNCOIN: return QString::fromUtf8("μOWNCOIN");
+            case KEYCO: return QString("KEYCO");
+            case mKEYCO: return QString("mKEYCO");
+            case uKEYCO: return QString::fromUtf8("μKEYCO");
             case duffs: return QString("duffs");
             default: return QString("???");
         }
@@ -69,9 +69,9 @@ QString BitcoinUnits::name(int unit)
     {
         switch(unit)
         {
-            case OWNCOIN: return QString("tOWNCOIN");
-            case mOWNCOIN: return QString("mtOWNCOIN");
-            case uOWNCOIN: return QString::fromUtf8("μtOWNCOIN");
+            case KEYCO: return QString("tKEYCO");
+            case mKEYCO: return QString("mtKEYCO");
+            case uKEYCO: return QString::fromUtf8("μtKEYCO");
             case duffs: return QString("tduffs");
             default: return QString("???");
         }
@@ -84,10 +84,10 @@ QString BitcoinUnits::description(int unit)
     {
         switch(unit)
         {
-            case OWNCOIN: return QString("Owncoin");
-            case mOWNCOIN: return QString("Milli-Owncoin (1 / 1" THIN_SP_UTF8 "000)");
-            case uOWNCOIN: return QString("Micro-Owncoin (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
-            case duffs: return QString("Ten Nano-Owncoin (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+            case KEYCO: return QString("Keyco");
+            case mKEYCO: return QString("Milli-Keyco (1 / 1" THIN_SP_UTF8 "000)");
+            case uKEYCO: return QString("Micro-Keyco (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+            case duffs: return QString("Ten Nano-Keyco (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
             default: return QString("???");
         }
     }
@@ -95,10 +95,10 @@ QString BitcoinUnits::description(int unit)
     {
         switch(unit)
         {
-            case OWNCOIN: return QString("TestOwncoins");
-            case mOWNCOIN: return QString("Milli-TestOwncoin (1 / 1" THIN_SP_UTF8 "000)");
-            case uOWNCOIN: return QString("Micro-TestOwncoin (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
-            case duffs: return QString("Ten Nano-TestOwncoin (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+            case KEYCO: return QString("TestKeycos");
+            case mKEYCO: return QString("Milli-TestKeyco (1 / 1" THIN_SP_UTF8 "000)");
+            case uKEYCO: return QString("Micro-TestKeyco (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+            case duffs: return QString("Ten Nano-TestKeyco (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
             default: return QString("???");
         }
     }
@@ -108,9 +108,9 @@ qint64 BitcoinUnits::factor(int unit)
 {
     switch(unit)
     {
-    case OWNCOIN:  return 100000000;
-    case mOWNCOIN: return 100000;
-    case uOWNCOIN: return 100;
+    case KEYCO:  return 100000000;
+    case mKEYCO: return 100000;
+    case uKEYCO: return 100;
     case duffs: return 1;
     default:   return 100000000;
     }
@@ -120,9 +120,9 @@ int BitcoinUnits::decimals(int unit)
 {
     switch(unit)
     {
-    case OWNCOIN: return 8;
-    case mOWNCOIN: return 5;
-    case uOWNCOIN: return 2;
+    case KEYCO: return 8;
+    case mKEYCO: return 5;
+    case uKEYCO: return 2;
     case duffs: return 0;
     default: return 0;
     }

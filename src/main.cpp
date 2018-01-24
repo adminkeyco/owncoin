@@ -1,6 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
-// Copyright (c) 2014-2015 The Owncoin developers
+// Copyright (c) 2014-2015 The Keyco developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -39,7 +39,7 @@ using namespace boost;
 using namespace std;
 
 #if defined(NDEBUG)
-# error "Owncoin cannot be compiled without assertions."
+# error "Keyco cannot be compiled without assertions."
 #endif
 
 /**
@@ -1542,22 +1542,33 @@ int64_t GetBlockValue(int nBits, int nHeight, const CAmount& nFees)
     if(nHeight > 4500 || Params().NetworkID() == CBaseChainParams::TESTNET) dDiff = ConvertBitsToDouble(nBits);
 
     int64_t nSubsidy = 0;
-    if(nHeight >= 5465) {
-        if((nHeight >= 17000 && dDiff > 75) || nHeight >= 24000) { // GPU/ASIC difficulty calc
-            // 2222222/(((x+2600)/9)^2)
-            nSubsidy = (2222222.0 / (pow((dDiff+2600.0)/9.0,2.0)));
-            if (nSubsidy > 25) nSubsidy = 25;
-            if (nSubsidy < 5) nSubsidy = 5;
-        } else { // CPU mining calc
-            nSubsidy = (11111.0 / (pow((dDiff+51.0)/6.0,2.0)));
-            if (nSubsidy > 500) nSubsidy = 500;
-            if (nSubsidy < 25) nSubsidy = 25;
-        }
+    if(nHeight >= 1) {
+        nSubsidy = 1;
+		
+		if(nHeight >= 101) {
+			nSubsidy = 22;
+		}
+		if(nHeight >= 43302) {
+			nSubsidy = 20;
+		}
+		if(nHeight >= 79303) {
+			nSubsidy = 18;
+		}
+		if(nHeight >= 108104) {
+			nSubsidy = 16;
+		}
+		if(nHeight >= 129705) {
+			nSubsidy = 14;
+		}
+		if(nHeight >= 144106) {
+			nSubsidy = 12;
+		}
+		if(nHeight >= 151307) {
+			nSubsidy = 11;
+		}
     } else {
-        nSubsidy = (1111.0 / (pow((dDiff+1.0),2.0)));
-        if (nSubsidy > 500) nSubsidy = 500;
-        if (nSubsidy < 1) nSubsidy = 1;
-    }
+		nSubsidy = 660000;
+	}
 
     // LogPrintf("height %u diff %4.2f reward %i \n", nHeight, dDiff, nSubsidy);
     nSubsidy *= COIN;
@@ -1586,28 +1597,28 @@ int64_t GetBlockValue(int nBits, int nHeight, const CAmount& nFees)
 
 int64_t GetMasternodePayment(int nHeight, int64_t blockValue)
 {
-    int64_t ret = blockValue/5; // start at 20%
+    int64_t ret = blockValue/1.25; // start at 20%
 
     if(Params().NetworkID() == CBaseChainParams::TESTNET) {
-        if(nHeight > 46000)             ret += blockValue / 20; //25% - 2014-10-07
-        if(nHeight > 46000+((576*1)*1)) ret += blockValue / 20; //30% - 2014-10-08
-        if(nHeight > 46000+((576*1)*2)) ret += blockValue / 20; //35% - 2014-10-09
-        if(nHeight > 46000+((576*1)*3)) ret += blockValue / 20; //40% - 2014-10-10
-        if(nHeight > 46000+((576*1)*4)) ret += blockValue / 20; //45% - 2014-10-11
-        if(nHeight > 46000+((576*1)*5)) ret += blockValue / 20; //50% - 2014-10-12
-        if(nHeight > 46000+((576*1)*6)) ret += blockValue / 20; //55% - 2014-10-13
-        if(nHeight > 46000+((576*1)*7)) ret += blockValue / 20; //60% - 2014-10-14
+        if(nHeight > 46000)             ret += blockValue / 1.25; //25% - 2014-10-07
+        if(nHeight > 46000+((576*1)*1)) ret += blockValue / 1.25; //30% - 2014-10-08
+        if(nHeight > 46000+((576*1)*2)) ret += blockValue / 1.25; //35% - 2014-10-09
+        if(nHeight > 46000+((576*1)*3)) ret += blockValue / 1.25; //40% - 2014-10-10
+        if(nHeight > 46000+((576*1)*4)) ret += blockValue / 1.25; //45% - 2014-10-11
+        if(nHeight > 46000+((576*1)*5)) ret += blockValue / 1.25; //50% - 2014-10-12
+        if(nHeight > 46000+((576*1)*6)) ret += blockValue / 1.25; //55% - 2014-10-13
+        if(nHeight > 46000+((576*1)*7)) ret += blockValue / 1.25; //60% - 2014-10-14
     }
 
-    if(nHeight > 158000)               ret += blockValue / 20; // 158000 - 25.0% - 2014-10-24
-    if(nHeight > 158000+((576*30)* 1)) ret += blockValue / 20; // 175280 - 30.0% - 2014-11-25
-    if(nHeight > 158000+((576*30)* 2)) ret += blockValue / 20; // 192560 - 35.0% - 2014-12-26
-    if(nHeight > 158000+((576*30)* 3)) ret += blockValue / 40; // 209840 - 37.5% - 2015-01-26
-    if(nHeight > 158000+((576*30)* 4)) ret += blockValue / 40; // 227120 - 40.0% - 2015-02-27
-    if(nHeight > 158000+((576*30)* 5)) ret += blockValue / 40; // 244400 - 42.5% - 2015-03-30
-    if(nHeight > 158000+((576*30)* 6)) ret += blockValue / 40; // 261680 - 45.0% - 2015-05-01
-    if(nHeight > 158000+((576*30)* 7)) ret += blockValue / 40; // 278960 - 47.5% - 2015-06-01
-    if(nHeight > 158000+((576*30)* 9)) ret += blockValue / 40; // 313520 - 50.0% - 2015-08-03
+    if(nHeight > 158000)               ret += blockValue / 1.25; // 158000 - 25.0% - 2014-10-24
+    if(nHeight > 158000+((576*30)* 1)) ret += blockValue / 1.25; // 175280 - 30.0% - 2014-11-25
+    if(nHeight > 158000+((576*30)* 2)) ret += blockValue / 1.25; // 192560 - 35.0% - 2014-12-26
+    if(nHeight > 158000+((576*30)* 3)) ret += blockValue / 1.25; // 209840 - 37.5% - 2015-01-26
+    if(nHeight > 158000+((576*30)* 4)) ret += blockValue / 1.25; // 227120 - 40.0% - 2015-02-27
+    if(nHeight > 158000+((576*30)* 5)) ret += blockValue / 1.25; // 244400 - 42.5% - 2015-03-30
+    if(nHeight > 158000+((576*30)* 6)) ret += blockValue / 1.25; // 261680 - 45.0% - 2015-05-01
+    if(nHeight > 158000+((576*30)* 7)) ret += blockValue / 1.25; // 278960 - 47.5% - 2015-06-01
+    if(nHeight > 158000+((576*30)* 9)) ret += blockValue / 1.25; // 313520 - 50.0% - 2015-08-03
 
     /* 
         Hard for will activate on block 348080 separating the two networks (v11 and earier and v12)
@@ -2013,7 +2024,7 @@ bool FindUndoPos(CValidationState &state, int nFile, CDiskBlockPos &pos, unsigne
 static CCheckQueue<CScriptCheck> scriptcheckqueue(128);
 
 void ThreadScriptCheck() {
-    RenameThread("owncoin-scriptch");
+    RenameThread("keyco-scriptch");
     scriptcheckqueue.Thread();
 }
 

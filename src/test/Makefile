@@ -1,6 +1,6 @@
 all:
-	$(MAKE) -C .. owncoin_test
+	$(MAKE) -C .. keyco_test
 clean:
-	$(MAKE) -C .. owncoin_test_clean
+	$(MAKE) -C .. keyco_test_clean
 check:
-	$(MAKE) -C .. owncoin_test_check
+	$(MAKE) -C .. keyco_test_check

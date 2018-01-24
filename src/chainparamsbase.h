@@ -9,8 +9,8 @@
 #include <vector>
 
 /**
- * CBaseChainParams defines the base parameters (shared between owncoin-cli and owncoind)
- * of a given instance of the Owncoin system.
+ * CBaseChainParams defines the base parameters (shared between keyco-cli and keycod)
+ * of a given instance of the Keyco system.
  */
 class CBaseChainParams
 {
